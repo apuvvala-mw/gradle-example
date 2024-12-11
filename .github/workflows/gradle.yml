@@ -28,4 +28,4 @@ jobs:
         gradle-version: '7.5'  # Specify the Gradle version here
 
     - name: Run Gradle Build
-      run: gradle build -x successfulTask -x skippedTask -x failingTask --info
+      run: gradle successfulTask -x successfulTask --info
