@@ -6,18 +6,14 @@ repositories {
     mavenCentral()
 }
 
-task upToDateTask {
-    inputs.file 'src/main/resources/input.txt'
-    outputs.file 'build/output.txt'
+task alwaysUpToDateTask {
+    // Define a dummy input file that never changes
+    inputs.property("dummyInput", "constantValue")
+
+    // Define a dummy output file that never changes
+    outputs.upToDateWhen { true }
 
     doLast {
-        def inputFile = file('src/main/resources/input.txt')
-        def outputFile = file('build/output.txt')
-        outputFile.text = inputFile.text.toUpperCase()
-        println 'Task executed and output generated.'
+        println 'This task is considered up-to-date and will not execute.'
     }
-}
-
-task cleanOutput(type: Delete) {
-    delete 'build/output.txt'
 }
