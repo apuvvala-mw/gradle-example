@@ -22,10 +22,8 @@ jobs:
         distribution: 'adopt'
         java-version: '11'
 
-    - name: Set up Gradle
-      uses: gradle/gradle-build-action@v2
-      with:
-        gradle-version: '7.5'  # Specify the Gradle version here
-
     - name: Run Gradle Build
-      run: gradle successfulTask skippedTask failingTask --info
+      run: |
+        ./gradlew upToDateTask --info
+        ./gradlew cleanOutput
+        ./gradlew upToDateTask --info
