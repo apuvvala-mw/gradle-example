@@ -6,23 +6,18 @@ repositories {
     mavenCentral()
 }
 
-tasks.register('successfulTask') {
+task upToDateTask {
+    inputs.file 'src/main/resources/input.txt'
+    outputs.file 'build/output.txt'
+
     doLast {
-        println 'This task runs successfully.'
+        def inputFile = file('src/main/resources/input.txt')
+        def outputFile = file('build/output.txt')
+        outputFile.text = inputFile.text.toUpperCase()
+        println 'Task executed and output generated.'
     }
 }
 
-tasks.register('skippedTask') {
-    onlyIf {
-        false // This will cause the task to be skipped
-    }
-    doLast {
-        println 'This task will not run.'
-    }
-}
-
-tasks.register('failingTask') {
-    doLast {
-        throw new GradleException('This task fails intentionally.')
-    }
+task cleanOutput(type: Delete) {
+    delete 'build/output.txt'
 }
